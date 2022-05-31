@@ -1,3 +1,5 @@
+import style from './Paginado.module.css'
+
 export default function Paginado({ paisesPorPagina, countries, paginado }) { // 10 // todas las ciudades(255) // pagina actual que está parado el cliente
     const pageNumbers = [] // 25 / porque hay 255 paises en total y se muestran 10 por pagina
 
@@ -10,7 +12,7 @@ export default function Paginado({ paisesPorPagina, countries, paginado }) { // 
             <ul>
                 {
                     pageNumbers?.map(number => (
-                        <button onClick={() => paginado(number)}>{number}</button>
+                        <button className={style.button} onClick={() => paginado(number)}>{number}</button>
                     ))
                 }
             </ul>

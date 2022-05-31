@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-
 export const showAllCountries = () => {
   return (dispatch) => {
     return axios("http://localhost:3001/countries")
@@ -25,3 +24,37 @@ export const detailSearch = (name) => {
       .catch(e => console.log(e))
   }
 }
+
+export const activityCreated = (payload) => { // payload: datos del formulario controlado
+  return async () => {
+    const json = await axios.post("http://localhost:3001/activity", payload)
+    console.log(json)
+    return json;
+  }
+}
+
+
+
+
+///////////////////////////FILTRADO://////////////////////////////////////////////////////////
+export const filtrarPaisesPorContinente = (payload) => {
+  return {
+    type: "FILTRAR_POR_CONTINENTE",
+    payload
+  }
+}
+
+export const filtrarPaisesPorOrden = (payload) => {
+  return {
+    type: "FILTRAR_POR_ORDEN",
+    payload
+  }
+}
+
+export const filtrarPaisesPorCantidad = (payload) => {
+  return {
+    type: "FILTRAR_POR_CANTIDAD",
+    payload
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////

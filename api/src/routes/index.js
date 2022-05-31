@@ -74,22 +74,41 @@ router.get('/countries/:idPais', async (req, res) => {
   }
 })
 
+router.get('/activity', async (req, res) => {
+  try {
+    let contedorActividades = await TouristActivity.findAll()
+
+    if (contedorActividades.length) {
+      res.status(200).send(contedorActividades)
+    } else {
+      res.status(404).send("No se encuentran actividades creadas")
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}) // esta ruta es para filtrar por actividades
+
 
 router.post('/activity', async (req, res) => {
   try {
-    const { nombre, dificultad, duracion, temporada, idPais } = req.body
+    const { nombre, dificultad, duracion, temporada, paises } = req.body
     if (nombre || dificultad || duracion || temporada) {
-      let createActivity = await TouristActivity.create({
+      const createActivity = await TouristActivity.create({
         nombre,
         dificultad,
         duracion,
         temporada
-      })
-      let idCountries = idPais.forEach(e => {
-        createActivity.addCountries(e)  // metodo add que se usa para la tabla que queramos, por ejemplo la tabla Countries de la db 
       });
-      res.status(201).send(createActivity)
+      paises.forEach(async (e) => {
+        let createActivityCountry = await Country.findOne({
+          where: {
+            name: e // el id sea igual al id del pais que le mandamos o seleccionó el cliente.
+          }
+        })
+        await createActivity.addCountry(createActivityCountry)
+      })
     }
+    res.status(201).send("Actividad creada!")
   } catch (e) {
     console.log(e)
   }

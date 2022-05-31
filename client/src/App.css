@@ -1,11 +1,12 @@
 .App {
-  text-align: center;
-  background-image: url('images/earth-galaxy.jpg');
-  height: 100vh;
-  flex-direction: column;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  overflow: scroll;
+    text-align: center;
+    background-image: url('images/earth-galaxy.jpg');
+    height: 100vh;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: scroll;
+    overflow-x: hidden;
 }

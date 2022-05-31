@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { detailSearch } from "../redux/actions";
+import style from './SearchBar.module.css'
 
 
-const SearchBar = () => {
+const SearchBar = ({ setPaginaActual }) => {
 
   const dispatch = useDispatch()
   const [input, setInput] = useState('')
@@ -18,6 +19,7 @@ const SearchBar = () => {
     } else {
       dispatch(detailSearch(input))
       setInput('')
+      setPaginaActual(1)
     }
   }
 
@@ -27,10 +29,10 @@ const SearchBar = () => {
   }
 
   return (
-    <div>
+    <div className={style.contenedor}>
       <form onSubmit={handleSubmit}>
-        <input type="search" value={input} placeholder="Ciudad..." onChange={handleChange} />
-        <input type="submit" />
+        <input className={style.write} type="search" value={input} placeholder="Buscar por país..." onChange={handleChange} />
+        <input className={style.search} type="submit" value='🔍'/>
       </form>
     </div>
   )
