@@ -57,4 +57,19 @@ export const filtrarPaisesPorCantidad = (payload) => {
     payload
   }
 }
+
+export const traerActividades = () => {
+  return (dispatch) => {
+    return axios('http://localhost:3001/activity')
+      .then(res => dispatch({ type: "TRAER_ACTIVIDADES", payload: res.data }))
+      .catch(e => console.log(e))
+  }
+}
+
+export const filtrarPorActividad = (payload) => {
+  return {
+    type: "FILTRAR_POR_ACTIVIDAD",
+    payload
+  }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////

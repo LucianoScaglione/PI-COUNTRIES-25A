@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { activityCreated, showAllCountries } from '../redux/actions'
 import stylecss from './Formularios.module.css'
+import { Link } from 'react-router-dom'
 
 
 const validaciones = (input) => {
@@ -112,7 +113,9 @@ const Formularios = () => {
 
   return (
     <div>
-
+      <Link to='/countries'>
+        <h3 className={stylecss.back}>Volver</h3>
+      </Link>
       <h1 className={stylecss.h1}>¡Crea tu actividad!</h1>
 
       <form onSubmit={handleSubmit}>

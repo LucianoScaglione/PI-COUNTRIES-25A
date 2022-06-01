@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { filtrarPaisesPorContinente, filtrarPaisesPorOrden, filtrarPaisesPorCantidad, showAllCountries } from "../redux/actions";
+import { filtrarPaisesPorContinente, filtrarPaisesPorOrden, filtrarPaisesPorCantidad, showAllCountries, filtrarPorActividad, traerActividades } from "../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import style from './Countries.module.css';
@@ -11,17 +11,18 @@ function Countries() {
 
   const dispatch = useDispatch()
   const countries = useSelector(state => state.countries)
+  const activity = useSelector(state => state.activity)
 
   ////////////////////////////////// PAGINADO:////////////////////////////////////////////////
-  const [paginaActual, setPaginaActual] = useState(1) // página actual arranca en 1
-  const [paisesPorPagina, setPaisesPorPagina] = useState(10) // países por página
-  const indiceUltimoPais = paginaActual * paisesPorPagina // pagina 1= 10  // pagina 2 = 20 // pagina 3 = 30
-  const indicePrimerPais = indiceUltimoPais - paisesPorPagina // pagina 1:  10 - 10 = 0 // pagina 2: 20 - 10 = // pagina 3: 30 - 10 = 20
+  const [paginaActual, setPaginaActual] = useState(1)
+  const paisesPorPagina = 10
+  const indiceUltimoPais = paginaActual * paisesPorPagina
+  const indicePrimerPais = indiceUltimoPais - paisesPorPagina
 
-  const paisActual = countries.slice(indicePrimerPais, indiceUltimoPais) // recorta del indice 1 al ultimo indice y lo muestra
+  const paisActual = countries.slice(indicePrimerPais, indiceUltimoPais)
   const paginado = (pageNumber) => {
     setPaginaActual(pageNumber)
-  } // con esta función cambiamos el estado de paginaActual, que en un principio arranca en 1, y, a medida que vayamos cambiando la página, cambiará el estado
+  }
   //////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -48,10 +49,19 @@ function Countries() {
     setOrden(e.target.value)
   }
 
+  const manejarFiltradoPorActividad = (e) => {
+    e.preventDefault() // evita que no se recargue la pagina y se borren los datos cuando damos enter o enviar datos.
+    dispatch(filtrarPorActividad(e.target.value))
+    setPaginaActual(1)
+
+  }
   //////////////////////////////////////////////////////////////////////////////////////////////
 
-  useEffect(() => dispatch(showAllCountries()), [dispatch])
-  
+  useEffect(() => {
+    dispatch(showAllCountries())
+    dispatch(traerActividades())
+  }, [dispatch])
+
   return (
     <div>
       <Link to='/activity'>
@@ -84,13 +94,27 @@ function Countries() {
           <option value='mayor'>Mayor población</option>
           <option value='menor'>Menor población</option>
         </select>
+
+        <select onChange={e => manejarFiltradoPorActividad(e)}>
+          <option hidden>Actividades turísticas</option>
+          {
+            activity && activity.map(a => {
+              return (
+                <option value={a.nombre}>{a.nombre}</option>
+              )
+            })
+          }
+        </select>
       </div>
       {/*/////////////////////////////////////////////////////////////////////////////////////////*/}
+
+      {/*////////////////////////////////Paginado:////////////////////////////////////////////////*/}
       <Paginado
         paisesPorPagina={paisesPorPagina}
         countries={countries.length}
         paginado={paginado}
       />
+      {/*/////////////////////////////////////////////////////////////////////////////////////////*/}
       <div className={style.contenedorCountry}>
         {
           paisActual && paisActual.map(e => {

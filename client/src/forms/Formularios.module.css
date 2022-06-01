@@ -14,7 +14,8 @@
 }
 
 .input {
-    background-color: rgb(207, 167, 167); /*paleturquoise*/
+    background-color: rgb(207, 167, 167);
+    /*paleturquoise*/
     color: black;
     display: inline-block;
     width: 450px;
@@ -53,7 +54,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    margin-left: 500px;  
+    margin-left: 500px;
     border-radius: 20px;
     font-weight: 900;
 }
@@ -64,4 +65,20 @@
     color: white;
     font-weight: 500;
     cursor: pointer;
+}
+
+.back {
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 980px;
+    padding: 10px 10px;
+    background-color: rgb(52, 52, 158);
+    color: white;
+    border-radius: 15px;
+    font-weight: 800;
+}
+
+.back:hover {
+    background-color: rgba(0, 0, 255, 0.587);
+    color: white;
 }

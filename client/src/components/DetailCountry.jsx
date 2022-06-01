@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailsCountry } from '../redux/actions';
 import style from './DetailCountry.module.css';
+import { Link } from 'react-router-dom'
 
 const DetailCountry = (props) => {
   const dispatch = useDispatch()
   const details = useSelector(state => state.detailCountry)
   const idParams = props.match.params.id
   useEffect(() => dispatch(detailsCountry(idParams)), [dispatch])
-  
+
   return (
     <div className={style.detail}>
       <img src={details.flags} alt='Img not found' />
@@ -21,15 +22,19 @@ const DetailCountry = (props) => {
       <p>Población: {details.population} habitantes</p>
       {details.TouristActivities && details.TouristActivities.map(e => {
         return (
-          <div key={e.id}>
-            Actividades: 
-            <p>{e.nombre}</p>
-            <p>{e.dificultad}</p>
-            <p>{e.duracion}</p>
-            <p>{e.temporada}</p>
+          <div key={e.id} className={style.activity}>
+            <p>Actividad: {e.nombre}</p>
+            <p>Dificultad: {e.dificultad}</p>
+            <p>Duración: {e.duracion}</p>
+            <p>Temporada: {e.temporada}</p>
           </div>
         )
-      })} 
+      })}
+      <div>
+        <Link to='/countries'>
+          <h3 className={style.back}>Volver</h3>
+        </Link>
+      </div>
     </div>
   )
 }

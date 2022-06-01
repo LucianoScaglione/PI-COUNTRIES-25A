@@ -1,7 +1,8 @@
 const initialState = {
     countries: [], // todas las ciudades
     detailCountry: [], // detalle ciudades
-    countriesCopy: [] // copia del estados countries (para que no se pisen)
+    countriesCopy: [], // copia del estados countries (para que no se pisen)
+    activity: []
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -78,6 +79,18 @@ const reducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 countries: cantidadPoblacion
+            }
+        }
+        case "TRAER_ACTIVIDADES": {
+            return {
+                ...state,
+                activity: payload
+            }
+        }
+        case "FILTRAR_POR_ACTIVIDAD": {
+            return {
+                ...state,
+                countries: state.countriesCopy.filter(e => e.TouristActivities.map(m => m.nombre).includes(payload))
             }
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////
