@@ -5,9 +5,9 @@ const axios = require('axios')
 const { Op } = require('sequelize')
 
 
-const getFromDb = async () => { 
+const getFromDb = async () => {
   let saved = await Country.findAll({
-    include: TouristActivity //  esto sirve para cuando pidamos la informacion de un pais, tambien nos envíe la actividad turística que el cliente haya creado, relacionada a ese pais. Esto se hace gracias a la relacion de muchos a muchos
+    include: TouristActivity
   });
   return saved;
 }
@@ -30,7 +30,7 @@ router.get('/countries', async (req, res, next) => {
           population: c.population,
         }
       })
-      let savedInformation = await Country.bulkCreate(countriesDATA) 
+      let savedInformation = await Country.bulkCreate(countriesDATA)
       res.status(200).send(savedInformation);
     } else {
       const { name } = req.query
@@ -38,7 +38,7 @@ router.get('/countries', async (req, res, next) => {
         const search = await Country.findAll({
           where: {
             name: {
-              [Op.iLike]: `%${name}%`    // que contenga lo que le llegue por parametro.. caso insensitive
+              [Op.iLike]: `%${name}%`
             }
           }
         })
@@ -61,7 +61,7 @@ router.get('/countries/:idPais', async (req, res) => {
         where: {
           id: idPais.toUpperCase() // mayuscula
         },
-        include: TouristActivity // ???? gracias a esto, podemos traer la informacion de detalle del pais con sus actividades creadas.
+        include: TouristActivity
       })
       if (found) {
         res.status(200).send(found)
@@ -70,7 +70,7 @@ router.get('/countries/:idPais', async (req, res) => {
       }
     }
   } catch (e) {
-    console.log(e) //res.status(404).send({ error: e.message })
+    console.log(e)
   }
 })
 
@@ -86,7 +86,7 @@ router.get('/activity', async (req, res) => {
   } catch (error) {
     console.log(error)
   }
-}) 
+})
 
 
 router.post('/activity', async (req, res) => {
@@ -102,7 +102,7 @@ router.post('/activity', async (req, res) => {
       paises.forEach(async (e) => {
         let createActivityCountry = await Country.findOne({
           where: {
-            name: e // el id sea igual al id del pais que le mandamos o seleccionó el cliente.
+            name: e
           }
         })
         await createActivity.addCountry(createActivityCountry) // ??? 

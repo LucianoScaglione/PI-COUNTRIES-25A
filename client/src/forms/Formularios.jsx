@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom'
 
 const validaciones = (input) => {
   const errores = {}
-  let asd = ['1', '2', '3', '4', '5']
 
   ////////NOMBRE////////////
   if (!input.nombre.length) {
     errores.nombre = "Campo obligatorio"
   } else if (input.nombre.length < 4) {
     errores.nombre = "Actividad muy corta"
+  } else if (!/^[a-zA-Z ]*$/.test(input.nombre)) {
+    errores.nombre = "Sólo se permiten palabras"
   }
   //////////////////////////
 
@@ -29,6 +30,8 @@ const validaciones = (input) => {
     errores.temporada = "Campo obligatorio"
   } else if (input.temporada !== 'Verano' && input.temporada !== 'Otoño' && input.temporada !== 'Invierno' && input.temporada !== 'Primavera') {
     errores.temporada = "Solamente puedes elegir las temporadas 'Verano, Otoño, Invierno y Primavera'"
+  } else if (!/^[a-zA-Z ]*$/.test(input.temporada)) {
+    errores.temporada = "Sólo se permiten palabras"
   }
   /////////////////////////
 
@@ -163,7 +166,7 @@ const Formularios = () => {
           <br />
 
           <input key='submit' className={stylecss.inputsolo} type='submit' value='Crear actividad' />
-    </form>
+        </form>
       </div>
     </div >
   )
