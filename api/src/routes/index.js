@@ -5,9 +5,9 @@ const axios = require('axios')
 const { Op } = require('sequelize')
 
 
-const getFromDb = async () => { // consulta si las tablas de la base de datos tienen algo
+const getFromDb = async () => { 
   let saved = await Country.findAll({
-    include: TouristActivity
+    include: TouristActivity //  esto sirve para cuando pidamos la informacion de un pais, tambien nos envíe la actividad turística que el cliente haya creado, relacionada a ese pais. Esto se hace gracias a la relacion de muchos a muchos
   });
   return saved;
 }
@@ -30,7 +30,7 @@ router.get('/countries', async (req, res, next) => {
           population: c.population,
         }
       })
-      let savedInformation = await Country.bulkCreate(countriesDATA) // Cuando necesite insertar varias filas en la tabla de su base de datos SQL, puede usar el método Sequelize bulkCreate(). El método bulkCreate() le permite insertar múltiples registros en la tabla de su base de datos con una sola llamada de función.
+      let savedInformation = await Country.bulkCreate(countriesDATA) 
       res.status(200).send(savedInformation);
     } else {
       const { name } = req.query
@@ -59,9 +59,9 @@ router.get('/countries/:idPais', async (req, res) => {
     if (idPais) {
       let found = await Country.findOne({
         where: {
-          id: idPais.toUpperCase()
+          id: idPais.toUpperCase() // mayuscula
         },
-        include: TouristActivity
+        include: TouristActivity // ???? gracias a esto, podemos traer la informacion de detalle del pais con sus actividades creadas.
       })
       if (found) {
         res.status(200).send(found)
@@ -86,7 +86,7 @@ router.get('/activity', async (req, res) => {
   } catch (error) {
     console.log(error)
   }
-}) // esta ruta es para filtrar por actividades
+}) 
 
 
 router.post('/activity', async (req, res) => {
@@ -105,7 +105,7 @@ router.post('/activity', async (req, res) => {
             name: e // el id sea igual al id del pais que le mandamos o seleccionó el cliente.
           }
         })
-        await createActivity.addCountry(createActivityCountry)
+        await createActivity.addCountry(createActivityCountry) // ??? 
       })
     }
     res.status(201).send("Actividad creada!")

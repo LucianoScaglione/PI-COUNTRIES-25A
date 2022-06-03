@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import style from './Countries.module.css';
 import SearchBar from '../forms/SearchBar';
 import Paginado from './Paginado';
-import Formularios from '../forms/Formularios';
 
 function Countries() {
 
@@ -31,6 +30,7 @@ function Countries() {
   const [orden, setOrden] = useState('')
 
   const manejarFiltradoPorContinente = (e) => {
+    e.preventDefault()
     dispatch(filtrarPaisesPorContinente(e.target.value))
     setPaginaActual(1)
   }
@@ -50,10 +50,9 @@ function Countries() {
   }
 
   const manejarFiltradoPorActividad = (e) => {
-    e.preventDefault() // evita que no se recargue la pagina y se borren los datos cuando damos enter o enviar datos.
+    e.preventDefault()
     dispatch(filtrarPorActividad(e.target.value))
     setPaginaActual(1)
-
   }
   //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -115,6 +114,7 @@ function Countries() {
         paginado={paginado}
       />
       {/*/////////////////////////////////////////////////////////////////////////////////////////*/}
+
       <div className={style.contenedorCountry}>
         {
           paisActual && paisActual.map(e => {
@@ -132,11 +132,6 @@ function Countries() {
           })
         }
       </div>
-      <Paginado
-        paisesPorPagina={paisesPorPagina}
-        countries={countries.length}
-        paginado={paginado}
-      />
     </div >
   );
 }

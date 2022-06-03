@@ -1,7 +1,20 @@
+.fondo {
+    background-color: rgba(255, 255, 255, .15);
+    display: inline-block;
+    border-radius: 20px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+.input2 {
+    display: inline-block;
+}
 .danger {
-    color: red;
+    background-color: rgba(255, 0, 0, 0.535);
+    color: white;
     font-size: 15px;
-    margin: 0px;
+    margin: 30px;
+    display: flexbox;
+    border-radius: 25px;
 }
 
 .label {
@@ -14,8 +27,7 @@
 }
 
 .input {
-    background-color: rgb(207, 167, 167);
-    /*paleturquoise*/
+    background-color: rgb(170, 167, 207);
     color: black;
     display: inline-block;
     width: 450px;
@@ -24,6 +36,7 @@
     justify-content: center;
     margin: 20px;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .h1 {
@@ -32,19 +45,19 @@
 }
 
 .inputsolo {
-    background-color: brown;
-    font-size: 15px;
+    background-color: yellow;
+    font-size: 20px;
     display: inline-block;
-    color: black;
-    width: 150px;
-    height: 40px;
+    color: rgba(0, 0, 0, 0.904);
+    width: 200px;
+    height: 50px;
     text-align: center;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 900;
 }
 
 .contenedorLi {
@@ -54,13 +67,14 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    margin-left: 500px;
+    margin-left: 90px;
     border-radius: 20px;
     font-weight: 900;
 }
 
 .delete {
     margin-left: 5px;
+    margin-bottom: 1px;
     background-color: red;
     color: white;
     font-weight: 500;

@@ -31,7 +31,7 @@ const SearchBar = ({ setPaginaActual }) => {
   return (
     <div className={style.contenedor}>
       <form onSubmit={handleSubmit}>
-        <input className={style.write} type="search" value={input} placeholder="Buscar por país..." onChange={handleChange} />
+        <input className={style.write} type="search" value={input} placeholder="Buscar país..." onChange={handleChange} />
         <input className={style.search} type="submit" value='🔍'/>
       </form>
     </div>

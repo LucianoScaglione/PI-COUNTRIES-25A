@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const showAllCountries = () => {
   return (dispatch) => {
     return axios("http://localhost:3001/countries")
@@ -32,9 +31,6 @@ export const activityCreated = (payload) => { // payload: datos del formulario c
     return json;
   }
 }
-
-
-
 
 ///////////////////////////FILTRADO://////////////////////////////////////////////////////////
 export const filtrarPaisesPorContinente = (payload) => {

@@ -4,13 +4,15 @@ import { activityCreated, showAllCountries } from '../redux/actions'
 import stylecss from './Formularios.module.css'
 import { Link } from 'react-router-dom'
 
-
 const validaciones = (input) => {
   const errores = {}
+  let asd = ['1', '2', '3', '4', '5']
 
   ////////NOMBRE////////////
   if (!input.nombre.length) {
     errores.nombre = "Campo obligatorio"
+  } else if (input.nombre.length < 4) {
+    errores.nombre = "Actividad muy corta"
   }
   //////////////////////////
 
@@ -26,13 +28,15 @@ const validaciones = (input) => {
   if (!input.temporada.length) {
     errores.temporada = "Campo obligatorio"
   } else if (input.temporada !== 'Verano' && input.temporada !== 'Otoño' && input.temporada !== 'Invierno' && input.temporada !== 'Primavera') {
-    errores.temporada = "Solamente puedes poner las temporadas 'Verano, Otoño, Invierno y Primavera'"
+    errores.temporada = "Solamente puedes elegir las temporadas 'Verano, Otoño, Invierno y Primavera'"
   }
   /////////////////////////
 
   ////////DURACION////////
   if (!input.duracion.length) {
     errores.duracion = "Campo obligatorio"
+  } else if (input.duracion.length < 3) {
+    errores.duracion = "Este campo debe contener un mínimo de 3 caracteres"
   }
   ///////////////////////
 
@@ -116,48 +120,51 @@ const Formularios = () => {
       <Link to='/countries'>
         <h3 className={stylecss.back}>Volver</h3>
       </Link>
-      <h1 className={stylecss.h1}>¡Crea tu actividad!</h1>
+      <div className={stylecss.fondo}>
+        <h1 className={stylecss.h1}>¡Crea tu actividad!</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className={stylecss.label}>Países</label>
-          <select className={stylecss.input} onChange={(e) => selectCountry(e)}>
-            {paises && paises.map(e => (
-              <option value={e.name}>{e.name}</option>
-            ))}
-          </select> <br />
-          <ul>
-            {input.paises.map(e => {
-              return (
-                <div className={stylecss.contenedorLi}>
-                  {e}
-                  <button className={stylecss.delete} value={e} onClick={(e) => handleDelete(e)}>X</button>
-                </div>
-              )
-            })
-            }
-          </ul>
-        </div>
-        < label className={stylecss.label}>Nombre de la actividad</label>
-        <input className={stylecss.input} type='text' name='nombre' value={input.nombre} placeholder='Ej: Boxeo...' onChange={handleChange} />
-        {errores.nombre && (<p className={stylecss.danger}>{errores.nombre}</p>)}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label className={stylecss.label}>Países</label>
+            <select className={stylecss.input} onChange={(e) => selectCountry(e)}>
+              <option hidden>Seleccionar países</option>
+              {paises && paises.map(e => (
+                <option value={e.name}>{e.name}</option>
+              ))}
+            </select> <br />
+            <ul>
+              {input.paises.map(e => {
+                return (
+                  <div className={stylecss.contenedorLi}>
+                    {e}
+                    <button className={stylecss.delete} value={e} onClick={(e) => handleDelete(e)}>X</button>
+                  </div>
+                )
+              })
+              }
+            </ul>
+          </div>
+          < label className={stylecss.label}>Nombre de la actividad</label>
+          <input className={stylecss.input} type='text' name='nombre' value={input.nombre} maxlength={15} placeholder='Ej: Boxeo...' onChange={handleChange} />
+          {errores.nombre && (<p className={stylecss.danger}>{errores.nombre}</p>)}
 
-        < label className={stylecss.label} > Dificultad</label>
-        <input className={stylecss.input} type='text' name='dificultad' value={input.dificultad} placeholder='Ej: 5...' onChange={handleChange} />
-        {errores.dificultad && (<p className={stylecss.danger}>{errores.dificultad}</p>)}
+          < label className={stylecss.label} > Dificultad</label>
+          <input className={stylecss.input} type='number' name='dificultad' value={input.dificultad} placeholder='Ej: 5...' onChange={handleChange} />
+          {errores.dificultad && (<p className={stylecss.danger}>{errores.dificultad}</p>)}
 
-        <label className={stylecss.label}>Duración</label>
-        <input key='duracion' className={stylecss.input} type='text' name='duracion' value={input.duracion} placeholder='Ej: 3 meses...' onChange={handleChange} />
-        {errores.duracion && (<p className={stylecss.danger}>{errores.duracion}</p>)}
+          <label className={stylecss.label}>Duración</label>
+          <input key='duracion' className={stylecss.input} type='text' name='duracion' value={input.duracion} maxlength={15} placeholder='Ej: 3 meses...' onChange={handleChange} />
+          {errores.duracion && (<p className={stylecss.danger}>{errores.duracion}</p>)}
 
-        <label className={stylecss.label}>Temporada</label>
-        <input key='temporada' className={stylecss.input} type='text' name='temporada' value={input.temporada} placeholder='Ej: Verano...' onChange={handleChange} />
-        {errores.temporada && (<p className={stylecss.danger}>{errores.temporada}</p>)}
+          <label className={stylecss.label}>Temporada</label>
+          <input key='temporada' className={stylecss.input} type='text' name='temporada' value={input.temporada} maxlength={9} placeholder='Ej: Verano...' onChange={handleChange} />
+          {errores.temporada && (<p className={stylecss.danger}>{errores.temporada}</p>)}
 
-        <br />
+          <br />
 
-        <input key='submit' className={stylecss.inputsolo} type='submit' value='Crear actividad' />
-      </form>
+          <input key='submit' className={stylecss.inputsolo} type='submit' value='Crear actividad' />
+    </form>
+      </div>
     </div >
   )
 }
