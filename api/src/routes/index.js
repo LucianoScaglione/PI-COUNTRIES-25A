@@ -98,20 +98,23 @@ router.post('/activity', async (req, res) => {
         dificultad,
         duracion,
         temporada
-      });
+      }); 
       paises.forEach(async (e) => {
-        let createActivityCountry = await Country.findOne({
+        let savedCountriesSelect = await Country.findOne({
           where: {
             name: e
           }
         })
-        await createActivity.addCountry(createActivityCountry) // ??? 
+        await createActivity.addCountry(savedCountriesSelect) 
       })
     }
-    res.status(201).send("Actividad creada!")
+    res.status(201).send("¡Actividad creada!")
   } catch (e) {
     console.log(e)
   }
 })
 
 module.exports = router;
+
+
+

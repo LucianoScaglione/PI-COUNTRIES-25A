@@ -27,7 +27,6 @@ export const detailSearch = (name) => {
 export const activityCreated = (payload) => { // payload: datos del formulario controlado
   return async () => {
     const json = await axios.post("http://localhost:3001/activity", payload)
-    console.log(json)
     return json;
   }
 }

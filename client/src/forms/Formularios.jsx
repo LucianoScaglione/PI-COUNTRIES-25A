@@ -30,9 +30,10 @@ const validaciones = (input) => {
     errores.temporada = "Campo obligatorio"
   } else if (input.temporada !== 'Verano' && input.temporada !== 'Otoño' && input.temporada !== 'Invierno' && input.temporada !== 'Primavera') {
     errores.temporada = "Solamente puedes elegir las temporadas 'Verano, Otoño, Invierno y Primavera'"
-  } else if (!/^[a-zA-Z ]*$/.test(input.temporada)) {
-    errores.temporada = "Sólo se permiten palabras"
   }
+    // } else if (!/^[a-zA-Z ]*$/.test(input.temporada)) {
+    //   errores.temporada = "Sólo se permiten palabras"
+    // }
   /////////////////////////
 
   ////////DURACION////////
