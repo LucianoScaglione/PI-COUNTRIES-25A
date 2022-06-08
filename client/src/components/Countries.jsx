@@ -97,7 +97,7 @@ function Countries() {
           {
             activity && activity.map(a => {
               return (
-                <option value={a.nombre}>{a.nombre}</option>
+                <option key={a.id} value={a.nombre}>{a.nombre}</option>
               )
             })
           }
@@ -117,10 +117,10 @@ function Countries() {
         {
           paisActual && paisActual.map(e => {
             return (
-              <div className={style.country}>
+              <div key={e.id} className={style.country}>
                 <Link to={`/countries/${e.id}`} >
                   <img src={e.flags} alt='Img not found' />
-                  <div className={style.text}>
+                  <div key={e.id} className={style.text}>
                     <h2>{e.name}</h2>
                     <p>Continente: {e.continent}</p>
                   </div>

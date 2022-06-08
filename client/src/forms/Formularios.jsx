@@ -31,9 +31,6 @@ const validaciones = (input) => {
   } else if (input.temporada !== 'Verano' && input.temporada !== 'Otoño' && input.temporada !== 'Invierno' && input.temporada !== 'Primavera') {
     errores.temporada = "Solamente puedes elegir las temporadas 'Verano, Otoño, Invierno y Primavera'"
   }
-    // } else if (!/^[a-zA-Z ]*$/.test(input.temporada)) {
-    //   errores.temporada = "Sólo se permiten palabras"
-    // }
   /////////////////////////
 
   ////////DURACION////////
@@ -66,14 +63,27 @@ const Formularios = () => {
 
   const handleChange = (e) => {
     e.preventDefault()
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
-    })
+    if (e.target.name === "temporada") {
+      const contenedor = e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1).toLowerCase()
+      setInput({
+        ...input,
+        temporada: contenedor
+      })
+      setErrores(validaciones({
+        ...input,
+        temporada: contenedor
+      }))
+      return
+    } else {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      })
 
-    setErrores(validaciones({
-      ...input, [e.target.name]: e.target.value
-    }))
+      setErrores(validaciones({
+        ...input, [e.target.name]: e.target.value
+      }))
+    }
   }
 
   const handleSubmit = (e) => {
@@ -84,7 +94,7 @@ const Formularios = () => {
       alert("Revisar bien los campos completados.")
     } else {
       dispatch(activityCreated(input))
-      alert("Actividad creada!")
+      alert("¡Actividad creada!")
       setInput({
         paises: [],
         nombre: '',
@@ -133,15 +143,16 @@ const Formularios = () => {
             <select className={stylecss.input} onChange={(e) => selectCountry(e)}>
               <option hidden>Seleccionar países</option>
               {paises && paises.map(e => (
-                <option value={e.name}>{e.name}</option>
+                <option key={e.name} value={e.name}>{e.name}</option>
               ))}
             </select> <br />
             <ul>
-              {input.paises.map(e => {
+              {input.paises.map((e, index) => { // index: posicion de cada elemento
+                console.log(index)
                 return (
-                  <div className={stylecss.contenedorLi}>
+                  <div key={index} className={stylecss.contenedorLi}>
                     {e}
-                    <button className={stylecss.delete} value={e} onClick={(e) => handleDelete(e)}>X</button>
+                    <button key={index} className={stylecss.delete} value={e} onClick={(e) => handleDelete(e)}>X</button>
                   </div>
                 )
               })
@@ -149,7 +160,7 @@ const Formularios = () => {
             </ul>
           </div>
           < label className={stylecss.label}>Nombre de la actividad</label>
-          <input className={stylecss.input} type='text' name='nombre' value={input.nombre} maxlength={15} placeholder='Ej: Boxeo...' onChange={handleChange} />
+          <input className={stylecss.input} type='text' name='nombre' value={input.nombre} maxLength={15} placeholder='Ej: Boxeo...' onChange={handleChange} />
           {errores.nombre && (<p className={stylecss.danger}>{errores.nombre}</p>)}
 
           < label className={stylecss.label} > Dificultad</label>
@@ -157,11 +168,11 @@ const Formularios = () => {
           {errores.dificultad && (<p className={stylecss.danger}>{errores.dificultad}</p>)}
 
           <label className={stylecss.label}>Duración</label>
-          <input key='duracion' className={stylecss.input} type='text' name='duracion' value={input.duracion} maxlength={15} placeholder='Ej: 3 meses...' onChange={handleChange} />
+          <input key='duracion' className={stylecss.input} type='text' name='duracion' value={input.duracion} maxLength={15} placeholder='Ej: 3 meses...' onChange={handleChange} />
           {errores.duracion && (<p className={stylecss.danger}>{errores.duracion}</p>)}
 
           <label className={stylecss.label}>Temporada</label>
-          <input key='temporada' className={stylecss.input} type='text' name='temporada' value={input.temporada} maxlength={9} placeholder='Ej: Verano...' onChange={handleChange} />
+          <input key='temporada' className={stylecss.input} type='text' name='temporada' value={input.temporada} maxLength={9} placeholder='Ej: Verano...' onChange={handleChange} />
           {errores.temporada && (<p className={stylecss.danger}>{errores.temporada}</p>)}
 
           <br />
