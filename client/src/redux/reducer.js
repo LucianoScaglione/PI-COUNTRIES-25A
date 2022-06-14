@@ -1,7 +1,7 @@
 const initialState = {
-  countries: [], 
-  detailCountry: [], 
-  countriesCopy: [], 
+  countries: [],
+  detailCountry: [],
+  countriesCopy: [],
   activity: []
 }
 
@@ -94,6 +94,12 @@ const reducer = (state = initialState, { type, payload }) => {
       }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
+    case "DELETE_ACTIVITY": {
+      return {
+        ...state,
+        detailCountry: payload
+      }
+    }
     default: return state;
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsCountry } from '../redux/actions';
+import { activityDelete, detailsCountry } from '../redux/actions';
 import style from './DetailCountry.module.css';
 import { Link } from 'react-router-dom'
 import NotFound from './NotFound'
@@ -9,6 +9,12 @@ const DetailCountry = (props) => {
   const dispatch = useDispatch()
   const details = useSelector(state => state.detailCountry)
   const idParams = props.match.params.id
+
+  const handleDelete = (e) => {
+    e.preventDefault()
+    dispatch(activityDelete({ idA: e.target.value, idC: idParams }))
+  }
+
   useEffect(() => dispatch(detailsCountry(idParams)), [dispatch])
 
   if (details.length === 0) {
@@ -27,9 +33,11 @@ const DetailCountry = (props) => {
         <p>Área: {details.area} km2</p>
         <p>Población: {details.population} habitantes</p>
         {details.TouristActivities && details.TouristActivities.map(e => {
+          const contentName = e.nombre.charAt(0).toUpperCase() + e.nombre.slice(1)
           return (
             <div key={e.id} className={style.activity}>
-              <p>Actividad: {e.nombre}</p>
+              <button className={style.botonX} value={e.id} onClick={e => handleDelete(e)}>❌</button>
+              <p>Actividad: {contentName}</p>
               <p>Dificultad: {e.dificultad}</p>
               <p>Duración: {e.duracion}</p>
               <p>Temporada: {e.temporada}</p>

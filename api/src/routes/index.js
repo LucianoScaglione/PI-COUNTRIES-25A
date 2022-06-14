@@ -92,26 +92,49 @@ router.get('/activity', async (req, res) => {
 router.post('/activity', async (req, res) => {
   try {
     const { nombre, dificultad, duracion, temporada, paises } = req.body
-    if (nombre || dificultad || duracion || temporada) {
-      const createActivity = await TouristActivity.create({
-        nombre,
-        dificultad,
-        duracion,
-        temporada
-      }); 
-      paises.forEach(async (e) => {
-        let savedCountriesSelect = await Country.findOne({
-          where: {
-            name: e
-          }
-        })
-        await createActivity.addCountry(savedCountriesSelect) 
+
+    const createActivity = await TouristActivity.create({
+      nombre: nombre.toLowerCase(),
+      dificultad,
+      duracion,
+      temporada
+    });
+    paises.forEach(async (e) => {
+      let savedCountriesSelect = await Country.findOne({
+        where: {
+          name: e
+        }
       })
-    }
+      await createActivity.addCountry(savedCountriesSelect) // creo la relacion de la actividad creada con cada uno de los paises
+    })
+
     res.status(201).send("¡Actividad creada!")
   } catch (e) {
     console.log(e)
   }
+})
+
+router.delete('/activity', async (req, res) => {
+  const { idA, idC } = req.body
+  const contenedorA = await TouristActivity.findOne({
+    where: {
+      id: idA
+    }
+  })
+  const contenedorC = await Country.findOne({
+    where: {
+      id: idC
+    },
+    include: TouristActivity
+  })
+  await contenedorA.removeCountry(contenedorC)
+  const countryUpdate = await Country.findOne({
+    where: {
+      id: idC
+    },
+    include: TouristActivity
+  })
+  res.status(200).send(countryUpdate)
 })
 
 module.exports = router;

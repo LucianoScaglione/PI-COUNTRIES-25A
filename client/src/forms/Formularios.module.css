@@ -45,7 +45,7 @@
 }
 
 .inputsolo {
-    background-color: yellow;
+    background-color: rgb(170, 167, 207);
     font-size: 20px;
     display: inline-block;
     color: rgba(0, 0, 0, 0.904);
@@ -58,6 +58,10 @@
     border-radius: 20px;
     cursor: pointer;
     font-weight: 900;
+}
+
+.inputsolo:hover {
+    background-color: gray;
 }
 
 .contenedorLi {

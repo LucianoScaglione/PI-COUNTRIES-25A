@@ -13,7 +13,7 @@ const validaciones = (input) => {
   } else if (input.nombre.length < 4) {
     errores.nombre = "Actividad muy corta"
   } else if (!/^[a-zA-Z ]*$/.test(input.nombre)) {
-    errores.nombre = "Sólo se permiten palabras"
+    errores.nombre = "Sólo se permiten letras"
   }
   //////////////////////////
 
@@ -137,12 +137,20 @@ const Formularios = () => {
       <div className={stylecss.fondo}>
         <h1 className={stylecss.h1}>¡Crea tu actividad!</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div>
             <label className={stylecss.label}>Países</label>
             <select className={stylecss.input} onChange={(e) => selectCountry(e)}>
               <option hidden>Seleccionar países</option>
-              {paises && paises.map(e => (
+              {paises && paises.sort((a, b) => {
+                if (a.name > b.name) {
+                  return 1
+                }
+                if (b.name > a.name) {
+                  return -1
+                }
+                return 0
+              }).map(e => (
                 <option key={e.name} value={e.name}>{e.name}</option>
               ))}
             </select> <br />
@@ -164,7 +172,7 @@ const Formularios = () => {
           {errores.nombre && (<p className={stylecss.danger}>{errores.nombre}</p>)}
 
           < label className={stylecss.label} > Dificultad</label>
-          <input className={stylecss.input} type='number' name='dificultad' value={input.dificultad} placeholder='Ej: 5...' onChange={handleChange} />
+          <input className={stylecss.input} type='number' name='dificultad' min={1} max={5} value={input.dificultad} placeholder='Ej: 5...' onChange={handleChange} />
           {errores.dificultad && (<p className={stylecss.danger}>{errores.dificultad}</p>)}
 
           <label className={stylecss.label}>Duración</label>

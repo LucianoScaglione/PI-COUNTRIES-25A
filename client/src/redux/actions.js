@@ -25,9 +25,10 @@ export const detailSearch = (name) => {
 }
 
 export const activityCreated = (payload) => { // payload: datos del formulario controlado
-  return async () => {
-    const json = await axios.post("http://localhost:3001/activity", payload)
-    return json;
+  return () => {
+    return axios.post("http://localhost:3001/activity", payload)
+      .then(res => res.data)
+      .catch(error => console.log(error))
   }
 }
 
@@ -68,3 +69,9 @@ export const filtrarPorActividad = (payload) => {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
+export const activityDelete = (payload) => {
+  return async (dispatch) => {
+    const contenedor = await axios.delete('http://localhost:3001/activity', { data: { idA: payload.idA, idC: payload.idC } })
+    dispatch({ type: "DELETE_ACTIVITY", payload: contenedor.data })
+  }
+}
