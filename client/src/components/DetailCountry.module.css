@@ -1,3 +1,7 @@
+.a a {
+    text-decoration: none;
+}
+
 .detail {
     display: inline-block;
     margin: 10px;
@@ -24,19 +28,28 @@
     font-size: 25px;
 }
 
-.back {
+/* .back {
     display: inline-block;
     padding: 10px 10px;
     background-color: rgb(52, 52, 158);
     color: white;
     border-radius: 15px;
     font-weight: 400;
+} */
+
+.back {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    margin-left: 10px;
 }
 
-.back:hover {
+/* .back:hover {
     background-color: rgba(0, 0, 255, 0.587);
     color: white;
-}
+} */
 
 .activity {
     display: column;
@@ -48,4 +61,8 @@
 
 .botonX {
     cursor: pointer;
+}
+
+.botonX:hover {
+    background-color: red;
 }

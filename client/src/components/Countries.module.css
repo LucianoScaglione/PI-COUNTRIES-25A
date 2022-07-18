@@ -1,3 +1,7 @@
+.esto a {
+    text-decoration: none;
+}
+
 .country {
     display: inline-block;
     margin: 35px;
@@ -41,8 +45,15 @@
 }
 
 .activity {
-    display: inline-block;
-    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+    color: white;
+    align-items: center;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 700
+    /* margin: 20px;
     margin-left: 850px;
     background-color: rgb(52, 52, 158);
     color: white;
@@ -52,13 +63,13 @@
     border-radius: 10px;
     cursor: pointer;
     font-size: 30px;
-    font-weight: 900;
+    font-weight: 900; */
 }
 
-.activity:hover {
+/* .activity:hover {
     background-color: rgba(0, 0, 255, 0.587);
     color: white;
-}
+} */
 
 .filtrado select {
     background-color: rgb(52, 52, 158);

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { activityCreated, showAllCountries } from '../redux/actions'
 import stylecss from './Formularios.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const validaciones = (input) => {
   const errores = {}
@@ -50,7 +50,7 @@ const Formularios = () => {
   const dispatch = useDispatch()
   const paises = useSelector((state) => state.countries)
   useEffect(() => dispatch(showAllCountries()), [dispatch])
-
+  const history = useHistory()
   const [input, setInput] = useState({
     paises: [],
     nombre: '',
@@ -102,6 +102,7 @@ const Formularios = () => {
         duracion: '',
         temporada: ''
       })
+      history.push('/countries')
     }
   }
 
@@ -130,7 +131,7 @@ const Formularios = () => {
 
 
   return (
-    <div>
+    <div className={stylecss.esto}>
       <Link to='/countries'>
         <h3 className={stylecss.back}>Volver</h3>
       </Link>
@@ -169,18 +170,22 @@ const Formularios = () => {
           </div>
           < label className={stylecss.label}>Nombre de la actividad</label>
           <input className={stylecss.input} type='text' name='nombre' value={input.nombre} maxLength={15} placeholder='Ej: Boxeo...' onChange={handleChange} />
+          <br />
           {errores.nombre && (<p className={stylecss.danger}>{errores.nombre}</p>)}
 
           < label className={stylecss.label} > Dificultad</label>
           <input className={stylecss.input} type='number' name='dificultad' min={1} max={5} value={input.dificultad} placeholder='Ej: 5...' onChange={handleChange} />
+          <br />
           {errores.dificultad && (<p className={stylecss.danger}>{errores.dificultad}</p>)}
 
           <label className={stylecss.label}>Duración</label>
           <input key='duracion' className={stylecss.input} type='text' name='duracion' value={input.duracion} maxLength={15} placeholder='Ej: 3 meses...' onChange={handleChange} />
+          <br />
           {errores.duracion && (<p className={stylecss.danger}>{errores.duracion}</p>)}
 
           <label className={stylecss.label}>Temporada</label>
           <input key='temporada' className={stylecss.input} type='text' name='temporada' value={input.temporada} maxLength={9} placeholder='Ej: Verano...' onChange={handleChange} />
+          <br />
           {errores.temporada && (<p className={stylecss.danger}>{errores.temporada}</p>)}
 
           <br />

@@ -3,15 +3,16 @@ import { filtrarPaisesPorContinente, filtrarPaisesPorOrden, filtrarPaisesPorCant
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import style from './Countries.module.css';
-import SearchBar from '../forms/SearchBar';
+import SearchBar from './SearchBar';
 import Paginado from './Paginado';
+import Loading from './Loading';
 
 function Countries() {
 
   const dispatch = useDispatch()
   const countries = useSelector(state => state.countries)
   const activity = useSelector(state => state.activity)
-
+  const [loader, setLoader] = useState(true)
   ////////////////////////////////// PAGINADO:////////////////////////////////////////////////
   const [paginaActual, setPaginaActual] = useState(1)
   const paisesPorPagina = 10
@@ -57,10 +58,15 @@ function Countries() {
   useEffect(() => {
     dispatch(showAllCountries())
     dispatch(traerActividades())
+    .then(() => setLoader(false))
   }, [dispatch])
 
+  if (loader) {
+    return <Loading />
+  }
+
   return (
-    <div>
+    <div className={style.esto}>
       <Link to='/activity'>
         <h3 className={style.activity}>Crear actividad</h3>
       </Link>

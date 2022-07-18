@@ -1,4 +1,4 @@
-.home h1 {
+/* .home h1 {
     height: 50px;
     width: 50px;
     display: flex;
@@ -13,6 +13,36 @@
 
 .button {
     display: inline-block;
+    background-color: rgba(255, 255, 255, .15);
+    font-size: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 150px;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+}
+
+h3 {
+    text-decoration: none;
+    color: white;
+}
+
+button:hover {
+    background-color: rgb(52, 52, 158);
+} */
+
+.home h1 {
+    color: white;
+    font-size: 50px;
+}
+
+.home a {
+    text-decoration: none;
+}
+
+.button {
     background-color: rgba(255, 255, 255, .15);
     font-size: 20px;
     padding-left: 30px;

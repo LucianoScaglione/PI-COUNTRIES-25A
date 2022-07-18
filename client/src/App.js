@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 import Home from './components/Home';
 import Countries from './components/Countries';
 import DetailCountry from './components/DetailCountry'
-import Formularios from './forms/Formularios';
+import Formularios from './components/Formularios';
 
 function App() {
   return (
