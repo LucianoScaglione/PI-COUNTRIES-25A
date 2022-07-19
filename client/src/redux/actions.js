@@ -1,9 +1,8 @@
 import axios from 'axios';
-const deploy_url = 'https://pi-countries-luciano.herokuapp.com'
 
 export const showAllCountries = () => {
   return (dispatch) => {
-    return axios(`${deploy_url}/countries`)
+    return axios(`/countries`)
       .then(res => dispatch({ type: "SHOW_COUNTRIES", payload: res.data }))
       .catch(e => console.log(e))
   }
@@ -11,7 +10,7 @@ export const showAllCountries = () => {
 
 export const detailsCountry = (id) => {
   return (dispatch) => {
-    return axios(`${deploy_url}/countries/${id}`)
+    return axios(`/countries/${id}`)
       .then(res => dispatch({ type: "SHOW_DETAILCOUNTRY", payload: res.data }))
       .catch(e => console.log(e))
   }
@@ -19,7 +18,7 @@ export const detailsCountry = (id) => {
 
 export const detailSearch = (name) => {
   return (dispatch) => {
-    return axios(`${deploy_url}/countries?name=${name}`)
+    return axios(`/countries?name=${name}`)
       .then(res => dispatch({ type: "DETAIL_SEARCH", payload: res.data }))
       .catch(e => console.log(e))
   }
@@ -27,7 +26,7 @@ export const detailSearch = (name) => {
 
 export const activityCreated = (payload) => { // payload: datos del formulario controlado
   return () => {
-    return axios.post(`${deploy_url}/activity`, payload)
+    return axios.post(`/activity`, payload)
       .then(res => res.data)
       .catch(error => console.log(error))
   }
@@ -57,7 +56,7 @@ export const filtrarPaisesPorCantidad = (payload) => {
 
 export const traerActividades = () => {
   return (dispatch) => {
-    return axios(`${deploy_url}/activity`)
+    return axios(`/activity`)
       .then(res => dispatch({ type: "TRAER_ACTIVIDADES", payload: res.data }))
       .catch(e => console.log(e))
   }
@@ -72,7 +71,7 @@ export const filtrarPorActividad = (payload) => {
 //////////////////////////////////////////////////////////////////////////////////////////////
 export const activityDelete = (payload) => {
   return async (dispatch) => {
-    const contenedor = await axios.delete(`${deploy_url}/activity`, { data: { idA: payload.idA, idC: payload.idC } })
+    const contenedor = await axios.delete(`/activity`, { data: { idA: payload.idA, idC: payload.idC } })
     dispatch({ type: "DELETE_ACTIVITY", payload: contenedor.data })
   }
 }
